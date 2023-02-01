@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserType {
+  CLIENT
+  ADMIN
+}
+enum Methode {
+  VISA
+  PAYPAL
+  UBA
+}
+
+model User{
+  id String @id @default(uuid())
+  firstname String
+  lastname String
+  username String @unique
+  email String @unique
+  hash String
+  type UserType @default(CLIENT)
+  address String?
+  phone String
+  country String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("user")
+}
+
+model PayementMethode {
+  id String @id @default(uuid())
+  number Int
+  cvv String
+  fullname String
+  expiry_date DateTime
+  type Methode @default(VISA)
+  
+  @@map("payementMethode")
+}
+
+model Supplier {
+  id String @id @default(uuid())
+  name String
+  email String @unique
+  phone Int
+  Address String
+  description String?
+  
+  @@map("supplier")
+}

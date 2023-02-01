@@ -6,8 +6,17 @@
   "author": "lionel",
   "license": "MIT",
   "dependencies": {
+    "@prisma/client": "^4.9.0",
+    "bcryptjs": "^2.4.3",
     "dotenv": "^16.0.3",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "ms": "^2.1.3",
+    "unique-username-generator": "^1.1.3"
+  },
+  "scripts": {
+    "start": "nodemon index.js",
+    "prisma:dev": "prisma migrate dev --name init"
   },
   "devDependencies": {
     "prisma": "^4.9.0"
