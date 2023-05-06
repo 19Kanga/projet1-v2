@@ -1,15 +1,15 @@
-const { Router } = require('express');
+const {Router} = require ('express');
 const {
-	getUserByIdController,
-	patchUserController,
-	getUsersController,
-} = require('../controllers/user');
-const { checkAuth } = require('../controllers/check-auth');
+  getUserByIdController,
+  patchUserController,
+  getUsersController,
+} = require ('../controllers/user');
+const {checkAuth} = require ('../controllers/check-auth');
 
-const router = Router();
+const router = Router ();
 
-router.get('/', checkAuth, getUsersController);
-router.get('/:id', checkAuth, getUserByIdController);
-router.patch('/', checkAuth, patchUserController);
+router.get ('/', getUsersController);
+router.get ('/:id', getUserByIdController);
+router.patch ('/', patchUserController);
 
 module.exports = router;
