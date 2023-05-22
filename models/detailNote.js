@@ -25,9 +25,8 @@ const readdetailnote = async callback => {
 
 const readdetailnoteById = async (id, callback) => {
   try {
-    const detailnote = await prisma.detailNote.findUnique ({
-      where: {id},
-      include: {Note: true},
+    const detailnote = await prisma.detailNote.findMany ({
+      where: {noteId: id},
     });
     callback (null, detailnote);
   } catch (err) {

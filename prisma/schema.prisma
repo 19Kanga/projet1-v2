@@ -95,25 +95,21 @@ model Note {
   credit       Int
   typeNote     TypeNote
   typeSemestre TypeSemestre
-  total        BigInt?
-  admis        Int?
-  echec        Int?
-  detailId     String
-  note         DetailNote   @relation(fields: [detailId], references: [id])
   userId       String
   user         User         @relation(fields: [userId], references: [id])
   classeId     String
   classe       Classes      @relation(fields: [classeId], references: [id])
+  DetailNote   DetailNote[]
 
   @@map("note")
 }
 
 model DetailNote {
   id      String @id @default(uuid())
-  module  String @unique
   matiere String @unique
   notes   Float
-  Note    Note[]
+  noteId  String
+  note    Note   @relation(fields: [noteId], references: [id])
 
   @@map("detailnote")
 }

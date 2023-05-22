@@ -12,6 +12,7 @@ const notesRouter = require ('./routes/note');
 const ParentRouter = require ('./routes/parent');
 const detailRouter = require ('./routes/detailNote');
 const smsRouter = require ('./routes/sms');
+const classNoRouter = require ('./routes/searchClassNote');
 
 const startServer = async () => {
   const prisma = new PrismaContext ();
@@ -28,6 +29,7 @@ const startServer = async () => {
   app.use ('/api/Note', notesRouter);
   app.use ('/api/Parents', ParentRouter);
   app.use ('/api/detailNote', detailRouter);
+  app.use ('/api/ClassNote', classNoRouter);
 
   app.listen (env.port, () => {
     console.log (`maisoft v2 running on port: ${env.port}`);

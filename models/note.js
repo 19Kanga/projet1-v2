@@ -27,8 +27,41 @@ const readnoteById = async (id, callback) => {
   try {
     const note = await prisma.note.findUnique ({
       where: {id},
-      include: {user: true},
+      include: {
+        user: true,
+      },
     });
+    callback (null, note);
+  } catch (err) {
+    callback (err, null);
+  }
+};
+
+const readnoteByClassId = async (classid, callback) => {
+  try {
+    const note = await prisma.note.findMany ({
+      where: {
+        classeId: classid,
+        user: {
+          type: 'ETUDIANT',
+        },
+      },
+      select: {
+        user: {
+          select: {
+            lastname: true,
+            firstname: true,
+            profile: true,
+          },
+        },
+        id: true,
+        moyenne: true,
+        credit: true,
+        typeSemestre: true,
+        typeNote: true,
+      },
+    });
+
     callback (null, note);
   } catch (err) {
     callback (err, null);
@@ -58,10 +91,23 @@ const deletenote = async (id, callback) => {
   }
 };
 
+// const readnoteByClasseId = async (id, callback) => {
+//   try {
+//     const note = await prisma.note.findUnique ({
+//       where: {id},
+//       include: {user: true},
+//     });
+//     callback (null, note);
+//   } catch (err) {
+//     callback (err, null);
+//   }
+// };
+
 module.exports = {
   createnote,
   readnote,
   readnoteById,
+  readnoteByClassId,
   updatenote,
   deletenote,
 };
